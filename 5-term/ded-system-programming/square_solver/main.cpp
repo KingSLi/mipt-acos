@@ -2,6 +2,11 @@
 #include <cassert>
 #include <cmath>
 
+/*!
+ * Uncomment TESTING if you want run tests
+ */
+// #define TESTING
+
 #define INF_ROOTS -2
 
 /*!
@@ -59,6 +64,7 @@ int solve_square(double a, double b, double c, double &solve1, double &solve2) {
   }
 }
 
+#ifndef TESTING
 
 int main() {
   printf("Hello! Please enter coef of eqution in format: a b c\n");
@@ -89,4 +95,29 @@ int main() {
   printf("\nSolver square equation closed!\n");
   return 0;
 }
+
+#else
+
+int main() {
+  double solve1, solve2, a, b, c;
+  // one root
+  a = 0; b = 1; c = 1;
+  solve_square(a, b, c, solve1, solve2);
+  assert(solve1 == -1);
+  // zero roots
+  a = 1; b = 0; c = 1;
+  assert(solve_square(a, b, c, solve1, solve2) == 0);
+  // inf roots
+  a = 0; b = 0; c = 0;
+  assert(solve_square(a, b, c, solve1, solve2) == INF_ROOTS);
+  // repeated roots
+  a = 1; b = -2; c = 1; solve2 = -INT32_MAX;
+  solve_square(a, b, c, solve1, solve2);
+  assert((solve1 == 1) && (solve2 == -INT32_MAX));
+  // two roots
+  a = 1; b = -5; c = -6;
+  solve_square(a, b, c, solve1, solve2);
+  assert(((solve1 == -1) && (solve2 == 6)) || ((solve1 == 6) && (solve2 == -1)));
+}
+#endif
 
