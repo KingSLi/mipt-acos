@@ -64,6 +64,7 @@ int main() {
 
     switch (countRoots) {
         case 0:
+            // ...doesn't have roots + \n plz
             printf("This equation haven't roots");
             break;
         case 1:
